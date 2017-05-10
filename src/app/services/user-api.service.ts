@@ -1,0 +1,20 @@
+import { Injectable } from '@angular/core';
+import { UserApi } from '../model/api';
+import { Observable } from 'rxjs';
+import { Http } from '@angular/http'; 
+import { SessionService } from '../services/session.service';
+
+@Injectable()
+export class UserApiService {
+	
+  	constructor(private http:Http, private session:SessionService) { }
+	
+	getApi(){
+		if(this.session.sessionCheck()){
+			//RECUPERO LE API DELL'UTENTE DAL SERVER
+			/*return this.http
+				.get("/funzione?param1=&param2=")
+				.map((responseData) => responseData.json()); */
+		}
+	}
+}

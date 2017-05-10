@@ -1,0 +1,9 @@
+<div>
+	<a routerLink="/user">pagina utente</a>
+	<h1>Ecco i commenti che hai scritto!</h1>
+	<div class="comments" *ngFor="let comm of comments">
+		<a [routerLink]="['/api/comm.getApiName()',comm.getApiName()]">API:{{comm.getApiName()}}</a>
+		<span>{{api.getText()}}</span>
+		<span>{{api.getRating()}}</span>
+	</div>
+</div>

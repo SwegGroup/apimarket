@@ -1,0 +1,19 @@
+<div id="logo">
+	logo di APIMarket (slideshow?)
+</div>
+<div id="rightMenu">
+	<div id="conto">
+		<p>Il tuo conto è di:</p>
+		<span>{{conto}}€</span>
+	</div>
+	<div id="fastLinks">
+		<ul>
+			<li><a href="???">Account</a></li>
+			<li><a href="???">Portafoglio</a></li>
+			<li><a href="???">Supporto</a></li>
+		</ul>
+	</div>
+</div>
+<div id="leftMenu">
+</div>
+

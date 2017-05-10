@@ -1,0 +1,18 @@
+<form>
+	<div>
+		<label for="searchBarId">Barra di ricerca</label>
+		<input type="text" id="searchBarId" name="searchBar" [(ngModel)]="searchInput">
+	</div>
+	<div>
+		<label for="categorySearchId">Ricerca sulla categoria:</label>
+		<select id="categorySearchId" name="categorySearch" [(ngModel)]="category"y>
+			<option value="default"></option>
+			<option value="cat1">cat1</option>
+			<option value="cat2">cat2</option>
+			<option value="cat3">cat3</option>
+		</select>
+	</div>
+	<div>
+		<button type="button" name="submit" (click)="submitSearch()">Cerca</button>
+	</div>
+</form>

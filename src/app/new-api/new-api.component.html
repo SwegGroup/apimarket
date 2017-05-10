@@ -1,0 +1,26 @@
+<div>
+	<h1>Registrazione nuova API</h1>
+	<form>
+		<div>
+			<label for="nameId">Nome:</label>
+			<input type="text" name="name" id="nameId" [(ngModel)]="api.name">
+		</div>
+		<div>
+			<label for="logoId">Logo:</label>
+			<input type="text" name="logo" id="logoId" [(ngModel)]="api.logo">
+		</div>
+		<div>
+			<label for="descrId">Descrizione:</label>
+			<input type="text" name="descr" id="descrId" [(ngModel)]="api.description">
+		</div>
+		<div>
+			<label for="docId">Link documentazione:</label>
+			<input type="text" name="doc" id="docId" [(ngModel)]="api.documentation">
+		</div>
+		<div>
+			<label for="ntfId">Link interfaccia:</label>
+			<input type="text" name="ntf" id="ntfId" [(ngModel)]="api.ntf">
+		</div>
+		<button (click)="submit()">Registra</button>
+	</form>
+</div>

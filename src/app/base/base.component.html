@@ -1,0 +1,27 @@
+<header>
+	<nav id="menu">
+		<ul>
+			<li><a routerLink="">home</a></li>
+			<li *ngIf="!session.sessionCheck()"><a routerLink="/login">Login</a></li>
+			<li *ngIf="session.sessionCheck()"><a routerLink="" (click)="logout()">Logout</a></li>
+			<li *ngIf="session.sessionCheck()"><a routerLink="/user">Pagina utente</a></li>
+			<li *ngIf="!session.sessionCheck()"><a routerLink="/registration">Registrati</a></li>
+		</ul>
+	</nav>
+	<div id="searchBar">
+	</div>
+</header>
+<main>
+	<router-outlet></router-outlet>
+</main>
+<footer>
+	<div id="contacts">
+		<span id="cont-email">info@italianasoftware.com</span>
+		<span id="cont-croad">italianaSoftware srl. via Selice, 66a Imola 40026, Italy</span>
+		<span id="cont-civa">P.IVA 02845491204. Capitale sociale: 10000 euro</span>
+		<span id="cont-reg">iscritta al reg. Imprese di Bologna. nr. iscrizione 02845491204</span>
+		<span id="cont-rea">Num. Iscrizione REA 471961</span>
+	</div>
+	<div id="copyright"></div>
+</footer>
+

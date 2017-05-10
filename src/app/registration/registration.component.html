@@ -1,0 +1,43 @@
+<div>
+	<h1>Registrazione nuovo utente</h1>
+	<form>
+		<div>
+			<label for="nameId">Nome:</label>
+			<input type="text" name="name" id="nameId" [(ngModel)]="reg.name">
+		</div>
+		<div>
+			<label for="SurnameId">Cognome:</label>
+			<input type="text" name="surname" id="SurnameId" [(ngModel)]="reg.surname">
+		</div>
+		<div>
+			<label for="emailId">Email</label>
+			<input type="text" name="email" id="emailId" [(ngModel)]="reg.email">
+		</div>
+		<div>
+			<label for="addressId">Address:</label>
+			<input type="text" name="address" id="addressId" [(ngModel)]="reg.address">
+		</div>
+		<div>
+			<label for="phoneId">Telefono:</label>
+			<input type="text" name="phone" id="phoneId" [(ngModel)]="reg.phone">
+		</div>
+		<div>
+			<label for="usernameId">Username:</label>
+			<input type="text" name="username" id="usernameId" [(ngModel)]="reg.username">
+		</div>
+		<div>
+			<label for="passwordId">Password:</label>
+			<input type="password" name="password" id="passwordId" [(ngModel)]="reg.password">
+		</div>
+		<div>
+			<label for="photoId">Logo:</label>
+			<input type="text" name="photo" id="photoId" [(ngModel)]="reg.photo">
+		</div>
+		<div>
+			<label for="bioId">Descrizione:</label>
+			<input type="text" name="bio" id="bioId" [(ngModel)]="reg.bio">
+		</div>
+		<button (click)="submit()">Iscriviti</button>
+	</form>
+</div>
+

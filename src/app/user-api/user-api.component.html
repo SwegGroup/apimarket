@@ -1,0 +1,11 @@
+<div>
+	<a routerLink="/user">pagina utente</a>
+	<h1>Ecco i microservizi che hai acquistato!</h1>
+	<div class="userApi" *ngFor="let api of userApi">
+		<a [routerLink]="['/user/userApi/api.getNome()',api.getName()]"><img src="{{api.getLogo()}}"></a>
+		<a [routerLink]="['/user/UserApi/api.getNome()',api.getName()]"><h2>{{api.getName()}}</h2></a>
+		<span>{{api.getRating()}}</span>
+		<span>{{api.getDownloads()}}</span>
+		<span>{{api.getGenericPrice()}}€</span>
+	</div>
+</div>

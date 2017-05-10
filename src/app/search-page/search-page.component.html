@@ -1,0 +1,8 @@
+<div class="itemSearch" *ngFor="let itemApi of api">
+	<a [routerLink]="['/api',itemApi.getName()]"><img src="{{itemApi.getLogo()}}"></a>
+	<a [routerLink]="['/api',itemApi.getName()]"><h2>{{itemApi.getName()}}</h2></a>
+	<span>{{itemApi.getRating()}}</span>
+	<span>{{itemApi.getDownloads()}}</span>
+	<span>{{itemApi.getGenericPrice()}}€</span>
+</div>
+<p>test: {{test}}</p>

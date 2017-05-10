@@ -1,0 +1,50 @@
+<div id="userPage">
+	<h1>Pagina di {{user.name}} {{user.surname}}</h1>
+	<img src="{{user.photo}}">
+	<h2>Dati personali</h2>
+	<div id="personal">
+		<form #edit="ngForm">
+			<ul>
+				<li>
+					<label for="nameId">Nome:</label>
+					<input type="text" id="nameId" name="name" value="{{user.name}}" [disabled]="!confirm" [(ngModel)]="user.name">
+				</li>
+				<li>
+					<label for="surnameId">Cognome:</label>
+					<input type="text" id="surnameId" name="surname" value="{{user.surname}}" [disabled]="!confirm" [(ngModel)]="user.surname">
+				</li>
+				<li>
+					<label for="mailId">Email:</label>
+					<input type="text" id="mailId" name="mail" value="{{user.mail}}" [disabled]="!confirm" [(ngModel)]="user.mail">
+				</li>
+				<li>
+					<label for="addressId">Indirizzo:</label>
+					<input type="text" id="addressId" name="address" value="{{user.address}}" [disabled]="!confirm" [(ngModel)]="user.address">
+				</li>
+				<li>
+					<label for="phoneId">Telefono:</label>
+					<input type="text" id="phoneId" name="phone" value="{{user.phone}}" [disabled]="!confirm" [(ngModel)]="user.phone">
+				</li>
+				<li>
+					<label for="bioId">Informazioni:</label>
+					<input type="text" id="bioId" name="bio" value="{{user.bio}}" [disabled]="!confirm" [(ngModel)]="user.bio">
+				</li>
+				<li>
+					<label for="coinId">Credito:</label>
+					<input type="text" id="coinId" name="coin" value="{{user.coin}}&euro;" [disabled]="!confirm" [(ngModel)]="user.coin">
+				</li>
+				<li [hidden]="!confirm">
+					<label for="photoId">Immagine:</label>
+					<input type="text" id="photoId" name="photo" value="{{user.photo}};" [(ngModel)]="user.photo">
+				</li>
+			</ul>
+			<button (click)="confirm=!confirm">Modifica</button>
+			<button [hidden]="!confirm" (click)="submitData()">Conferma</button>
+		</form>
+	</div>
+	<div>
+		<a routerLink="/user/userApi">Gestisci API</a>
+		<a routerLink="/user/newApi">Carica nuova API</a>
+		<a routerLink="/user/comments">Visualizza commenti</a>
+	</div>
+</div>
