@@ -1,10 +1,27 @@
 type CommentType: void {
-	.id: int
+	.id?: int
 	.testo: string
 	.rating: int
 	.username: string
 	.nomeApi: string
 }
+
+type CommentTypeArray: void {
+  .array [ 0, * ]: CommentType
+}
+
+type CommentUpdate: void {
+  .id: int
+  .text: string
+}
+
+type CommentString: void {
+   .root: string
+ } 
+
+ type CommentInt: void {
+   .root: int
+ }
 
 /*interface CommentManager {
 	RequestResponse:
@@ -16,8 +33,9 @@ type CommentType: void {
 
 interface CommentManagerInterface {
 	RequestResponse:
-		getComments ( string )( CommentType ),
+		getComments ( CommentString )( CommentTypeArray ),
 		putComment ( CommentType )( bool ),
-		updateComment ( CommentType )( bool ),
-		deleteComment ( string )( bool )
+		updateComment ( CommentUpdate )( bool ),
+		deleteComment ( CommentInt )( bool ),
+		getCommentsFromUser ( CommentString )( CommentTypeArray )
 }

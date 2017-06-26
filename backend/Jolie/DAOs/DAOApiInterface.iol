@@ -1,3 +1,13 @@
+type DAOPolicy: void {
+  .id?: int
+  .nomeAPI: string
+  .nome: string
+  .descrizione: string
+  .byte: int
+  .giorni: int
+  .prezzo: double
+}
+
 interface DAOApiInterface {
 	RequestResponse:
 		getMostDownloadedAPIsId( undefined )( undefined ),
@@ -5,7 +15,16 @@ interface DAOApiInterface {
 		getAPIPreview( undefined )( undefined ),
 		getAPIPage( undefined )( undefined ),
 		getAPIStats( undefined )( undefined ),
-		saveAcquisto( undefined )( undefined )
+		saveAcquisto( undefined )( undefined ),
+		getAPIFromName( undefined )( undefined ),
+		getApiFromDescription( undefined )( undefined ),
+		getBoughtApiFromUsername( undefined )( undefined ),
+		getUploadedApiFromUsername( undefined )( undefined ),
+		addPolicyToAPI( DAOPolicy )( undefined ),
+		removePolicyFromAPI( int )( undefined ),
+		getPolicyFromId( int )( undefined ),
+		getPoliciesFromApiName( string )( undefined ),
+		getAllGateway( undefined )( undefined )
 }
 
 //API preview =

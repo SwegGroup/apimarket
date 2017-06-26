@@ -1,6 +1,11 @@
+type timeDiffType: void {
+  .start: undefined
+  .end: undefined
+}
+
 interface AnalyzerInterface {
 	RequestResponse:
-		getTime( undefined )( undefined ),
-		timeDiff( undefined )( undefined ),
-		getValueSize( undefined )( undefined )
+		getTime( void )( undefined ),
+		timeDiff( timeDiffType )( double ),
+		getValueSize( undefined )( int )
 }

@@ -1,6 +1,7 @@
 include "database.iol"
 include "console.iol"
 include "../constants.iol"
+include "string_utils.iol"
 
 include "DAOInterface.iol"
 include "DAOCommentInterface.iol"
@@ -26,21 +27,21 @@ main {
 		q.b = request.testo;
 		q.c = request.rating;
 		q.d = request.username;
-		q.e = request.nomeAPI;
-		update@Database( q )( result )
+		q.e = request.nomeApi;
+		update@Database( q )( response )
 
 	}]
 
 	[delete( request )( response ) {		
 		q = "DELETE FROM Commenti WHERE idCommento=:idCommento";
-		q.idCommento = request.idCommento;
-		update@Database( q )( result )
+		q.idCommento = request;
+		update@Database( q )( response )
 
 	}]
 
 	[find( request )( response ) {		
 		q = "SELECT * FROM Commenti WHERE idCommento=:idCommento";
-		q.idCommento = request.idCommento;
+		q.idCommento = request.id;
 		query@Database( q )( result );
 
 		if ( #result.row == 0 ) {
@@ -57,7 +58,7 @@ main {
 		q.c = request.rating;
 		q.d = request.username;
 		q.e = request.nomeAPI;
-		update@Database( q )( result )
+		update@Database( q )( response )
 
 	}]
 
@@ -68,19 +69,31 @@ main {
 		if ( #result.row == 0 ) {
 			println@Console("Commenet database is empty")()
 		} else {
-			response -> result.row[ 0 ]
+			response -> result
 		}
 	}]
 
 	[getCommentsFromApiId( request )( response ) {
 		q = "SELECT * FROM Commenti WHERE nomeAPI=:nomeAPI";
-		q.nomeAPI = request.nomeAPI;
+		q.nomeAPI = request;
 		query@Database( q )( result );
 
 		if ( #result.row == 0 ) {
 			println@Console("No comments present")()
 		} else {
-			response -> result.row[ 0 ]
+			response -> result
+		}
+	}]
+
+	[getCommentsFromUser( request )( response ) {
+		q = "SELECT * FROM Commenti WHERE username=:username";
+		q.username = request;
+		query@Database( q )( result );
+
+		if ( #result.row == 0 ) {
+			println@Console("No comments present")()
+		} else {
+			response -> result
 		}
 	}]
 

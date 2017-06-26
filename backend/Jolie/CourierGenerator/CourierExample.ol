@@ -5,15 +5,17 @@
 			FaxInterface
 			Fax
 */
-include "AnalyzerInterface.iol"
-include "KeyManagerInterface.iol"
+include "../Analyzer/AnalyzerInterface.iol"
+include "../KeyManager/KeyManagerInterface.iol"
+include "../APIManager/APIManagerInterface.iol"
+include "../constants.iol"
 
 //include microservice interface file
-include "fax.iol"
+include "../Uploads/Interface/Fax.iol"
 
 execution { concurrent }
 
-type AuthenticationData: void {
+type AuthenticationData: any {
     .key:string
 }
 
@@ -42,15 +44,21 @@ outputPort KeyManager {
 	Interfaces: KeyManagerInterface
 }
 
+outputPort APIManager {
+	Location: APIManagerLocation
+	Protocol: sodep
+	Interfaces: APIManagerInterface
+}
+
 // outputport microservice
 outputPort Fax {
 	Interfaces: FaxInterface
-	Location: FaxLocation
-	Protocol: sodep
+	Location: "FaxLocation"
+	Protocol: FaxProtocol
 }
 
 inputPort Aggregator {
-	Location: "socket://localhost:20000/!/Fax"
+	Location: "local"
 	Interfaces: AggregatorInterface
 	Protocol: sodep
   /* here we aggregates the outputPort Fax extended using the extender AuthInterfaceExtender
@@ -64,25 +72,28 @@ courier Aggregator {
   /* all the RequestResponse of interface FaxInterface will be pre-processed by the following code */
 	[ interface FaxInterface( request )( response ) ] {
     /* if the key is ok, the incoming message will be forwarded to the target port (Fax) */
-    anal.api = "apiNamePlaceholder";
-    key = request.key;
-    validateKey@KeyManager( key )( val );
+    anal.nomeAPI = "Fax"; // get api name from key
+    anal.key = key.root = request.key;
+    key.api = "Fax";
+    checkKey@KeyManager( key )( val );
     if( val ) {
-    	getTime@Analyzer()( time.start );
 
-	    forward ( request )( response );
+	    {
+	    	getTime@Analyzer()( time.start );
+	    	forward ( request )( response );
+	    	getTime@Analyzer()( time.end )
+	    };
 
-	    getTime@Analyzer()( time.end );
+	    {
+	    	timeDiff@Analyzer( time )( anal.interval ) |
+	    	getValueSize@Analyzer( response )( anal.size )
+	    };
 
-	    timeDiff@Analyzer( time )( anal.interval ) |	// parallel
-	    getValueSize@Analyzer( response )( anal.size );
-
-	    // update user data in database
-	    //anal {api, size, interval}
-	    incrementSize@UserManager( anal )() |
-	    // update API data in database
-	    incrementSize@APIManager( anal )() |
-	    incrementInterval@APIManager( anal )();
+	    {
+	    	// update API data in database
+	    	incrementSize@APIManager( anal )() |
+	    	incrementInterval@APIManager( anal )()
+	    }
     }
     else {
     	throw( KeyNotValid )

@@ -1,24 +1,19 @@
 include "runtime.iol"
 include "console.iol"
+include "string_utils.iol"
+include "../constants.iol"
 include "GatewayInterface.iol"
 include "../APIManager/APIManagerInterface.iol"
-include "CourierGenerator.iol"
-include "../constants.iol"
+include "../CourierGenerator/CourierGeneratorInterface.iol"
 
 include "deploy.iol"
+
+execution{ concurrent }
 
 outputPort APIManager {
 	Location: APIManagerLocation
 	Protocol: sodep
 	Interfaces: APIManagerInterface
-}
-
-outputPort CourierGenerator {
-	Interfaces: CourierGeneratorInterface
-}
-
-embedded {
-  Java: "com.apim.server.services.gateway.ServiceCourierGenerator" in CourierGenerator
 }
 
 define courier_redirection_op {
@@ -27,7 +22,8 @@ define courier_redirection_op {
 	with( emb ) {
 	    .filepath = filecouriername;
 	    .type = "Jolie"
-	 };
+	};
+	println@Console( "Embedding "+filecouriername )();
 	loadEmbeddedService@Runtime( emb )( handle );
 	//setting embedded service to output port
 	with (op) {
@@ -35,12 +31,14 @@ define courier_redirection_op {
 		.name = outputname
 	};
 	setOutputPort@Runtime( op )();
+	println@Console( "Creating outputPort "+outputname )();
 	//setting redirection dynamically
 	with( redirection ){
 		.outputPortName = outputname;
 		.resourceName = nameofservice;
 		.inputPortName = "Gateway"
 	};
+	println@Console( "Setting redirection "+nameofservice+" to outputport" )();
 	setRedirection@Runtime ( redirection )()
 }
 
@@ -51,25 +49,23 @@ define set_api_data {
 }
 
 init {
-	println@Console( "Running" )()
-	/*getAll@APIManager()( array ); // array di ApiType
-	for ( i=0, i<#array, i++ ) {
-		apiData -> array[ i ];
+	println@Console( "Gateway running" )();
+	for ( i=0, i<10000000, i++ ) {i=i};
+	getAllGateway@APIManager()( array ); // array di ApiType
+	for ( i=0, i<#array.row, i++ ) {
+		apiData -> array.row[ i ];
 		set_api_data;
-		//outputname = "FaxCourier";
-		//filecouriername = "FaxCourier.ol";
-		//nameofservice = "fax";
-		//calling operation
 		courier_redirection_op
-	}*/
+	}
 }
 
 main
 {
 	// Call on Api created or updated
-  [setnewredirection( request )( response ) {
-       apiData = request;
-       set_api_data;
-       courier_redirection_op
-  }]
+
+	[setnewredirection( request )( response ) {
+		apiData -> request;
+		set_api_data;
+		courier_redirection_op
+	}]
 }

@@ -6,16 +6,30 @@ type DateType: void {
 
 type KeyType: void {
 	.key: string
-	.dataScadenza: /*dateType*/ string
+	.dataScadenza: int
 	.maxByte: double
 	.tempoUso: int
 	.username: string
 	.nomeAPI: string
 }
 
+type IncrementTypeKey: void {
+  .root: string
+  .size: double
+}
+
+type KeyCheck: void {
+  .root: string
+  .api: string
+}
+
+type KeyInt: void {
+  .root: int
+}
+
 interface KeyManagerInterface {
 	RequestResponse:
-		checkKey ( string )( KeyType ),
-		keygen ( KeyType )( bool ),
-		validateKey ( string )( KeyType )
+		checkKey ( KeyCheck )( bool ),
+		keygen ( KeyType )( string ),
+		incrementSize ( IncrementTypeKey )( void )
 }
